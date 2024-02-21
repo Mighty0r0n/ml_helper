@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "simple": {
+            "format": "%(levelname)s: %(message)s"
+        }
+    },
+    "handlers": {
+        "stdout": {
+            "class": "logging.FileHandler",
+            "filename": "log.txt",
+            "formatter": "simple",
+            "level": "INFO"
+        }
+    },
+    "loggers": {
+        "root": {
+            "handlers": ["stdout"],
+            "level": "INFO"
+        }
+    }
+}
