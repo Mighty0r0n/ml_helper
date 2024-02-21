@@ -19,6 +19,7 @@ Happy coding! 🚀
   - [ ] Add code for column datastats(min, max, std, nunique, etc)
 - [ ] Maybe think of class Strucure. Benefting here?
 - [ ] Is there an auto doc generator, similiar to the one in java generating an HTTPS doc?
+- [ ] ![wow](./documentation/img.png)
 ## Contents
 
 |--- configs\
