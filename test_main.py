@@ -1,6 +1,9 @@
+# from sklearnex import patch_sklearn
+# patch_sklearn()
 import pandas as pd
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
 import config
+import logging_helper
 import utils
 
 
@@ -12,12 +15,10 @@ def main(data_path: str,
          random_state: int,
          cv: int):
 
-    error_dir, importance_dir, main_dir, val_curves_dir, model_dir = utils.generate_run_directories()
+    error_dir, importance_dir, main_dir, val_curves_dir, model_dir = logging_helper.generate_run_directories()
 
     # Load the data
     data = pd.read_csv(data_path)
-    data = data.drop(columns=["region", "region.col", "fish_identifier"])
-    data = data.dropna()
 
     # Split the data into features and target
     X = data.drop(target, axis=1)
