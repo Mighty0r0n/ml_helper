@@ -2,7 +2,7 @@
 # patch_sklearn()  # Still receiving NaNs -> Why??
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
 import utils
-from logging_helper import setup_logging, generate_run_directories, print_regression_metrics, change_file_handler_path
+from logging_helper import setup_logging, generate_run_directories, change_file_handler_path
 from logging_helper import logger
 import config
 
@@ -57,7 +57,7 @@ def main(data_path: str,
     # Predict the target
     y_pred = grid_search.predict(X_test)
 
-    logger.info(print_regression_metrics(y_test, y_pred))
+    logger.info(utils.print_regression_metrics(y_test, y_pred))
 
     # Print the cross validation scores
     logger.info(cross_validate(best_estimator, X, y, cv=cv, scoring=('r2',
