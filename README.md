@@ -12,6 +12,13 @@ helpful for the machine learning community.
 
 Happy coding! 🚀
 
+## To-Do
+
+- [ ] Add third party logging. Stuff like cv is still excluded when verbose=3
+- [ ] Add code for pd.DataFrames
+  - [ ] Add code for column datastats(min, max, std, nunique, etc)
+- [ ] Maybe think of class Strucure. Benefting here?
+- [ ] Is there an auto doc generator, similiar to the one in java generating an HTTPS doc?
 ## Contents
 
 |--- configs\
