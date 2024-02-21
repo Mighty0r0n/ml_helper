@@ -1,8 +1,10 @@
-import os
 import json
+import os
 import pickle
 from time import sleep
+
 import pandas as pd
+
 from src.logging_helper import logger
 
 
@@ -21,6 +23,7 @@ def load_model(path):
         model = pickle.load(infile)
     return model
 
+
 def load_data(path: str, decimal: str) -> pd.DataFrame:
     sleep(0.75)
     logger.info(f"[green]Loading data: {path}")
@@ -36,7 +39,8 @@ def load_data(path: str, decimal: str) -> pd.DataFrame:
 
     return df
 
-def generate_markdown_tree(root_path: str, file_extensions: list=None, indent=0) -> str:
+
+def generate_markdown_tree(root_path: str, file_extensions: list = None, indent=0) -> str:
     """
     Generate a markdown tree of the given directory
     Only used for documentation purposes
@@ -72,7 +76,6 @@ def generate_markdown_tree(root_path: str, file_extensions: list=None, indent=0)
 
 
 if __name__ == '__main__':
-
     # Example usage
     project_root = ".."
     markdown_tree = generate_markdown_tree(project_root)
