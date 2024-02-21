@@ -1,9 +1,7 @@
 # from sklearnex import patch_sklearn
-# patch_sklearn()
-import pandas as pd
+# patch_sklearn()  # Still receiving NaNs -> Why??
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
-import config
-import logging_helper
+from src import config, logging_helper
 import utils
 
 
@@ -15,10 +13,16 @@ def main(data_path: str,
          random_state: int,
          cv: int):
 
-    error_dir, importance_dir, main_dir, val_curves_dir, model_dir = logging_helper.generate_run_directories()
+    # Setup the logging
+    logging_helper.setup_logging('../configs/logging_config.json')
+
+    # Create the run directories
+    error_dir, main_dir, model_dir = logging_helper.generate_run_directories(
+        tag=f"{model.__class__.__name__}_placeholder"
+    )
 
     # Load the data
-    data = pd.read_csv(data_path)
+    data = utils.load_data(data_path, decimal=".")
 
     # Split the data into features and target
     X = data.drop(target, axis=1)
@@ -43,29 +47,29 @@ def main(data_path: str,
                       params=grid_search.best_params_)
 
     # Print the best parameters
-    utils.console.log(grid_search.best_params_)
+    print(grid_search.best_params_)
 
     # Print the best score
-    utils.console.log(grid_search.best_score_)
+    print(grid_search.best_score_)
 
     # Predict the target
     y_pred = grid_search.predict(X_test)
 
-    utils.print_regrssion_metrics(y_test, y_pred)
+    logging_helper.print_regression_metrics(y_test, y_pred)
 
     # Print the cross validation scores
-    utils.console.log(cross_validate(best_estimator, X, y, cv=cv, scoring=('r2',
+    print(cross_validate(best_estimator, X, y, cv=cv, scoring=('r2',
                                                                            'max_error')
                          ))
 
-    utils.console.save_text(main_dir + "/run_log.txt")
+
 
 
 if __name__ == '__main__':
-    main(data_path='data/db_d13c_sorted_utf_little_changes.csv',
-         target='d13C_cor',
-         model=config.mlp_regressor,
-         model_param_grid=config.mlp_param_grid,
+    main(data_path='../test_data/testdata.csv',
+         target='Target',
+         model=config.rf_regressor,
+         model_param_grid=config.rf_regressor_param_grid,
          test_size=0.2,
          random_state=42,
          cv=5)
