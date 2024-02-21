@@ -18,7 +18,7 @@
       "mode": "a",
       "filename": "log.txt",
       "formatter": "simple",
-      "level": "INFO"
+      "level": "DEBUG"
     }
   },
   "loggers": {
