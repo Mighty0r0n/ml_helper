@@ -14,19 +14,21 @@ Happy coding! 🚀
 
 ## Contents
 
-├── configs\
-|   ├── logging_config.json\
-├── src\
-|   ├── config.py\
-|   ├── log.txt\
-|   ├── logging_helper.py\
-|   ├── test_main.py\
-|   ├── utils.py\
-├── test_data\
-|   ├── testdata.csv\
-├── .gitignore\
-├── README.md\
-├── log.txt\
+|--- configs\
+|   |--- logging_config.json\
+|--- src\
+|   |--- config.py\
+|   |--- log.txt\
+|   |--- logging_helper.py\
+|   |--- test_main.py\
+|   |--- utils.py\
+|--- test_data\
+|   |--- testdata.csv\
+|--- .gitignore\
+|--- README.md\
+|--- log.txt\
+
+.
 
 
 
