@@ -9,6 +9,7 @@
     "handlers": {
         "stdout": {
             "class": "logging.FileHandler",
+            "mode": "a",
             "filename": "log.txt",
             "formatter": "simple",
             "level": "INFO"
