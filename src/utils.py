@@ -26,7 +26,7 @@ def load_model(path):
 
 def load_data(path: str, decimal: str) -> pd.DataFrame:
     sleep(0.75)
-    logger.info(f"[green]Loading data: {path}")
+    logger.info(f"Loading data: {path}")
 
     # Automatically determines seperator between ; and \t in file
     seperator = ';' if len(open(path, 'r').readline().split(';')) > 1 else '\t'
