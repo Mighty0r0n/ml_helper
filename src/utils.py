@@ -2,6 +2,10 @@ import json
 import os
 import pickle
 from time import sleep
+from sklearn.metrics import (r2_score,
+                             mean_absolute_error,
+                             explained_variance_score,
+                             mean_squared_error)
 
 import pandas as pd
 
@@ -75,9 +79,19 @@ def generate_markdown_tree(root_path: str, file_extensions: list = None, indent=
     return tree
 
 
+def print_regression_metrics(y_true, y_pred) -> str:
+    return(f"Regression metrics: \n"
+                f"    -> R2:  {r2_score(y_true=y_true, y_pred=y_pred)}\n"
+                f"    -> MAE: {mean_absolute_error(y_true=y_true, y_pred=y_pred)}\n"
+                f"    -> MSE: {mean_squared_error(y_true=y_true, y_pred=y_pred)}\n"
+                f"    -> VAR: {explained_variance_score(y_true=y_true, y_pred=y_pred)}\n")
+
+
 if __name__ == '__main__':
     # Example usage
     project_root = ".."
     markdown_tree = generate_markdown_tree(project_root)
 
     print(markdown_tree)
+
+
