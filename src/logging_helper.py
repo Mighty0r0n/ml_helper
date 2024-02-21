@@ -1,7 +1,3 @@
-from sklearn.metrics import (r2_score,
-                             mean_absolute_error,
-                             explained_variance_score,
-                             mean_squared_error)
 import logging.config
 import logging.handlers
 import pathlib
@@ -57,12 +53,7 @@ def change_file_handler_path(handler_name: str, new_path: str):
     logger.addHandler(new_handler)
 
 
-def print_regression_metrics(y_true, y_pred) -> str:
-    return(f"Regression metrics: \n"
-                f"    -> R2:  {r2_score(y_true=y_true, y_pred=y_pred)}\n"
-                f"    -> MAE: {mean_absolute_error(y_true=y_true, y_pred=y_pred)}\n"
-                f"    -> MSE: {mean_squared_error(y_true=y_true, y_pred=y_pred)}\n"
-                f"    -> VAR: {explained_variance_score(y_true=y_true, y_pred=y_pred)}\n")
+
 
 
 def generate_run_directories(log_name: str, tag: str = ""):
