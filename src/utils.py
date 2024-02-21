@@ -9,7 +9,7 @@ from sklearn.metrics import (r2_score,
 
 import pandas as pd
 
-from src.logging_helper import logger
+from logging_helper import logger
 
 
 def save_params(logdir, filename, params):
