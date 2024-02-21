@@ -1,14 +1,13 @@
 from sklearn.metrics import (r2_score,
                              mean_absolute_error,
                              explained_variance_score,
-                             mean_squared_error, PredictionErrorDisplay)
+                             mean_squared_error)
 import logging.config
 import logging.handlers
 import pathlib
 import json
 import os
 from datetime import datetime
-from time import sleep
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +17,12 @@ def setup_logging(config_path: str):
     with open(config_file) as file:
         config = json.load(file)
     logging.config.dictConfig(config)
+
+
+def get_handler(handler_name: str) -> logging.handlers:
+    for handler in logger.handlers:
+        if handler.name == handler_name:
+            return handler
 
 
 def print_regression_metrics(y_true, y_pred):
@@ -30,35 +35,35 @@ def print_regression_metrics(y_true, y_pred):
 
 def generate_run_directories(tag):
     """
+    Create directories for the run
+    Also sets the log file path for the logger
 
-    :return:
     """
     main_dir = init_dir(root_dir="../runs", tag=tag)
-    try:
-        plot_dir = os.path.join(main_dir, "plots")
-        model_dir = os.path.join(main_dir, "models/")
-        error_dir = os.path.join(plot_dir, "plots_error")
-        os.mkdir(plot_dir)
-        os.mkdir(error_dir)
-        os.mkdir(model_dir)
-    except FileExistsError:
-        pass
-    # console.log(f"[green]Starting the pipeline!")
-    sleep(0.75)
-    return error_dir, main_dir, model_dir
+    plot_dir = os.path.join(main_dir, "plots")
+    model_dir = os.path.join(main_dir, "models/")
+    os.mkdir(plot_dir)
+    os.mkdir(model_dir)
+    handler = get_handler(handler_name="stdout")
+    logger.baseFilename = os.path.join(main_dir, "log.log")
+
+    return main_dir, model_dir, plot_dir
 
 
 def init_dir(root_dir: str = "../runs", tag: str = "") -> str:
-    if os.path.exists(root_dir):
-        tag = f"{tag}_{datetime.now().strftime('%d_%m_%Y-%H:%M:%S')}"
+    """
+    Create a directory for the run
 
+    :param root_dir: Working directory
+    :param tag: Giving the run a tag if None tag will be the current date and time
+    """
     if not os.path.exists(root_dir):
         logger.info(f"-> Creating root dir: {root_dir}")
         os.mkdir(root_dir)
     if tag != "":
+        if os.path.exists(os.path.join(root_dir, tag)):
+            tag = f"{tag}_{datetime.now().strftime('%d_%m_%Y-%H:%M:%S')}"
         run_dir = os.path.join(root_dir, tag)
-        # str(datetime.now().
-        #     strftime("pipeline_%d_%m_%Y-%H:%M:%S") + "-" + tag))
     else:
         run_dir = os.path.join(root_dir,
                                datetime.now().
@@ -67,3 +72,9 @@ def init_dir(root_dir: str = "../runs", tag: str = "") -> str:
         logger.info(f"-> Creating run directory: {run_dir}")
         os.mkdir(run_dir)
     return run_dir
+
+
+if __name__ == '__main__':
+    setup_logging('/home/daniel/SideProjects/ml_helper/configs/logging_config.json')
+    logger.info('test')
+    print(1)
