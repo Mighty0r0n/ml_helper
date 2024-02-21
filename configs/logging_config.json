@@ -1,24 +1,33 @@
 {
-    "version": 1,
-    "disable_existing_loggers": false,
-    "formatters": {
-        "simple": {
-            "format": "%(levelname)s: %(message)s"
-        }
-    },
-    "handlers": {
-        "stdout": {
-            "class": "logging.FileHandler",
-            "mode": "a",
-            "filename": "log.txt",
-            "formatter": "simple",
-            "level": "INFO"
-        }
-    },
-    "loggers": {
-        "root": {
-            "handlers": ["stdout"],
-            "level": "INFO"
-        }
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(levelname)s: %(message)s"
     }
+  },
+  "handlers": {
+    "stdout": {
+      "class": "logging.StreamHandler",
+      "formatter": "simple",
+      "level": "INFO",
+      "stream": "ext://sys.stdout"
+    },
+    "file": {
+      "class": "logging.FileHandler",
+      "mode": "a",
+      "filename": "log.txt",
+      "formatter": "simple",
+      "level": "INFO"
+    }
+  },
+  "loggers": {
+    "root": {
+      "handlers": [
+        "stdout",
+        "file"
+      ],
+      "level": "INFO"
+    }
+  }
 }
