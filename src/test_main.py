@@ -1,8 +1,10 @@
 # from sklearnex import patch_sklearn
 # patch_sklearn()  # Still receiving NaNs -> Why??
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
-from src import config, logging_helper
 import utils
+from logging_helper import setup_logging, generate_run_directories, print_regression_metrics
+from logging_helper import logger
+import config
 
 
 def main(data_path: str,
@@ -12,14 +14,14 @@ def main(data_path: str,
          test_size: float,
          random_state: int,
          cv: int):
-
     # Setup the logging
-    logging_helper.setup_logging('../configs/logging_config.json')
+    setup_logging('../configs/logging_config.json')
 
     # Create the run directories
-    error_dir, main_dir, model_dir = logging_helper.generate_run_directories(
+    main_dir, model_dir, plot_dir = generate_run_directories(
         tag=f"{model.__class__.__name__}_placeholder"
     )
+
 
     # Load the data
     data = utils.load_data(data_path, decimal=".")
@@ -30,7 +32,6 @@ def main(data_path: str,
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
-
 
     # Create a grid search
     grid_search = GridSearchCV(model,
@@ -47,22 +48,20 @@ def main(data_path: str,
                       params=grid_search.best_params_)
 
     # Print the best parameters
-    print(grid_search.best_params_)
+    logger.info(grid_search.best_params_)
 
     # Print the best score
-    print(grid_search.best_score_)
+    logger.info(grid_search.best_score_)
 
     # Predict the target
     y_pred = grid_search.predict(X_test)
 
-    logging_helper.print_regression_metrics(y_test, y_pred)
+    print_regression_metrics(y_test, y_pred)
 
     # Print the cross validation scores
-    print(cross_validate(best_estimator, X, y, cv=cv, scoring=('r2',
-                                                                           'max_error')
-                         ))
-
-
+    logger.info(cross_validate(best_estimator, X, y, cv=cv, scoring=('r2',
+                                                                     'max_error')
+                               ))
 
 
 if __name__ == '__main__':
