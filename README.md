@@ -21,6 +21,7 @@ Happy coding! 🚀
 - [ ] Is there an auto doc generator, similiar to the one in java generating an HTTPS doc?
 - [ ] Implement the following, since QueueHandler somehow cant parse get handlers: in config. Did [he](https://www.youtube.com/watch?v=9L77QExPmI0) used a different Version? how?
   - ![LoggerClass](./documentation/img.png)
+- [ ] Make the Contents tree prettier...
 ## Contents
 
 |--- configs\
