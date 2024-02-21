@@ -12,14 +12,21 @@ helpful for the machine learning community.
 
 Happy coding! 🚀
 
-├── __pycache__
-|   ├── config.cpython-311.pyc
-|   ├── logging_helper.cpython-311.pyc
-|   ├── utils.cpython-311.pyc
-├── config.py
-├── log.txt
-├── logging_helper.py
-├── test_main.py
-├── utils.py
+## Contents
+
+├── configs\
+|   ├── logging_config.json\
+├── src\
+|   ├── config.py\
+|   ├── log.txt\
+|   ├── logging_helper.py\
+|   ├── test_main.py\
+|   ├── utils.py\
+├── test_data\
+|   ├── testdata.csv\
+├── .gitignore\
+├── README.md\
+├── log.txt\
+
 
 
