@@ -33,6 +33,9 @@ def load_data(path: str, decimal: str) -> pd.DataFrame:
     logger.info(f"Loading data: {path}")
 
     # Automatically determines seperator between ; and \t in file
+    # to-do: should i add more seperators?
+    # POSSIBLE BUG WITH THIS EXPRESSION! Since for example .gff files can contain multiple line seperators with their
+    # attribute fields. This could lead to a wrong seperator detection since those files contain \t and ; as seperators
     seperator = ';' if len(open(path, 'r').readline().split(';')) > 1 else '\t'
     df = pd.read_csv(filepath_or_buffer=path,
                      header=0,
