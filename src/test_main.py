@@ -1,12 +1,12 @@
-# from sklearnex import patch_sklearn
-# patch_sklearn()  # May cause troubles on WSL
+#from sklearnex import unpatch_sklearn, patch_sklearn
+#patch_sklearn()  # May cause troubles on WSL
 import config
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
 
 
 import utils
-from logging_helper import logger
-from logging_helper import setup_logging, generate_run_directories
+from logging_assistance.logging_helper import logger
+from logging_assistance.logging_helper import setup_logging, generate_run_directories
 
 
 def main(data_path: str, target: str, model, model_param_grid: dict, test_size: float, random_state: int, cv: int):
