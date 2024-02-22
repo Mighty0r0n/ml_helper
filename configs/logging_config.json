@@ -37,7 +37,7 @@
   },
   "filters": {
     "get_metrics": {
-      "()": "logging_utils.StartsWithFilter",
+      "()": "logging_assistance.logging_utils.StartsWithFilter",
       "prefixes": [
         "Loading data:",
         "Regression metrics:"

@@ -9,7 +9,7 @@ from sklearn.metrics import (r2_score,
                              explained_variance_score,
                              mean_squared_error)
 
-from logging_helper import logger
+from logging_assistance.logging_helper import logger
 
 
 def save_params(logdir, filename, params):
