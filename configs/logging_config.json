@@ -4,6 +4,9 @@
   "formatters": {
     "simple": {
       "format": "%(levelname)s: %(message)s"
+    },
+    "simple_time": {
+      "format": "%(levelname)s - %(asctime)s: %(message)s"
     }
   },
   "handlers": {
@@ -18,14 +21,32 @@
       "mode": "a",
       "filename": "log.txt",
       "formatter": "simple",
-      "level": "DEBUG"
+      "level": "DEBUG",
+      "delay": "true"
+    },
+    "metrics": {
+      "class": "logging.FileHandler",
+      "mode": "a",
+      "filename": "metrics_collection.txt",
+      "formatter": "simple_time",
+      "filters": [
+        "get_metrics"
+      ],
+      "level": "INFO"
+    }
+  },
+  "filters": {
+    "get_metrics": {
+      "()": "logging_helper.StartsWithFilter",
+      "prefix": "Regression metrics:"
     }
   },
   "loggers": {
     "root": {
       "handlers": [
         "stdout",
-        "file"
+        "file",
+        "metrics"
       ],
       "level": "INFO"
     }
