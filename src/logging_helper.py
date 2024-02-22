@@ -19,6 +19,15 @@ For basic usage of the logging helper, you can use the following code snippet:
     setup_logging('YOUR/CONFIG/PATH.json')
 
     # Create the run directories
+    
+    # If you want to create multiple models in the same run, you can wrap the generate_run_directories()
+    # function inside a for loop and give the tag a unique name for each model
+    # the generate_run_directories() function will create a directory for each individual run and also
+    # will take care, that logging files are stored in the correct directory dynamically so the user
+    # won't have to redirect the logging file path for each run.
+    
+    # for run in pipeline:  <---- Include for loop for multi run
+    
     main_dir, model_dir, plot_dir, log_dir = generate_run_directories(
         log_name=NAME_OF_LOG_FILE,  # preferably the name of the model
         tag=f"NAME_OF_SINGLE_RUN_FOLDER"  # preferably the name of the model and architecture 
