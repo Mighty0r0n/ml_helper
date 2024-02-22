@@ -1,7 +1,6 @@
 import logging.config
 
 
-
 class StartsWithFilter(logging.Filter):
     """
     Filter to only log messages that start with a certain prefix
@@ -18,6 +17,7 @@ class StartsWithFilter(logging.Filter):
     }
 
     """
+
     def __init__(self, prefixes: list[str]):
         super().__init__()
         self.prefixes = prefixes
@@ -30,5 +30,3 @@ class StartsWithFilter(logging.Filter):
         :return: log record if the message starts with the prefix
         """
         return any(record.getMessage().startswith(prefix) for prefix in self.prefixes)
-
-
