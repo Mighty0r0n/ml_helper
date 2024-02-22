@@ -19,8 +19,9 @@ Happy coding! 🚀
   - [ ] Add code for column datastats(min, max, std, nunique, etc)
 - [ ] Maybe think of class Strucure. Benefting here?
 - [ ] Is there an auto doc generator, similiar to the one in java generating an HTTPS doc?
-- [ ] Implement the following, since QueueHandler somehow cant parse get handlers: in config. Did [he](https://www.youtube.com/watch?v=9L77QExPmI0) used a different Version? how?
+- [x] Implement the following, since QueueHandler somehow cant parse get handlers: in config. Did [he](https://www.youtube.com/watch?v=9L77QExPmI0) used a different Version? how?
   - ![LoggerClass](./documentation/img.png)
+    - [ ] PROBLEM -> I'm on py3.11, above class structure for py3.12. can i upgrade py version in my project?
 - [ ] Make the Contents tree prettier...
 ## Contents
 
