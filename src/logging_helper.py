@@ -5,8 +5,6 @@ import json
 import os
 from datetime import datetime
 
-logger = logging.getLogger(__name__)
-
 """
 For basic usage of the logging helper, you can use the following code snippet:
 
@@ -14,6 +12,9 @@ For basic usage of the logging helper, you can use the following code snippet:
     # import the logging helper
     from logging_helper import setup_logging, generate_run_directories
     from logging_helper import logger
+    
+    # with the logger imported you only need to call logger.LEVEL("MESSAGE") instead of print("MESSAGE")
+    # Replace LEVEL for the desired log level (info, debug, warning, error, critical) (eg. logger.info("MESSAGE"))
     
     # Setup the logging
     setup_logging('YOUR/CONFIG/PATH.json')
@@ -40,6 +41,8 @@ For further advanced usage you can add new filters, handlers, and loggers here i
 and use them in the logging_config.json file. (For example, the StartWithFilter)
 """
 
+# Create a logger
+logger = logging.getLogger(__name__)
 
 def setup_logging(config_path: str):
     """
@@ -134,32 +137,6 @@ def init_dir(tag: str, root_dir: str = "../runs") -> str:
         os.mkdir(run_dir)
     return run_dir
 
-
-class StartsWithFilter(logging.Filter):
-    """
-    Filter to only log messages that start with a certain prefix
-
-    The below example can be used in the logging_config.json file:
-
-    "filters": {
-    "get_metrics": {
-      "()": "logging_helper.StartsWithFilter",
-      "prefix": "YOUR_PREFIX_HERE"
-    }
-
-    """
-    def __init__(self, prefix):
-        super().__init__()
-        self.prefix = prefix
-
-    def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
-        """
-        Filter the log records for the given prefix
-
-        :param record: log record
-        :return: log record if the message starts with the prefix
-        """
-        return record.getMessage().startswith(self.prefix)
 
 
 if __name__ == '__main__':
