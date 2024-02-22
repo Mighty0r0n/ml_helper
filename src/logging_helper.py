@@ -53,9 +53,6 @@ def change_file_handler_path(handler_name: str, new_path: str):
     logger.addHandler(new_handler)
 
 
-
-
-
 def generate_run_directories(log_name: str, tag: str = ""):
     """
     Create directories for the run
@@ -82,7 +79,7 @@ def init_dir(tag: str, root_dir: str = "../runs") -> str:
     :param tag: Giving the run a tag if None tag will be the current date and time
     """
     if not os.path.exists(root_dir):
-        logger.info(f"-> Creating root dir: {root_dir}")
+        print(f"-> Creating root dir: {root_dir}")
         os.mkdir(root_dir)
     if tag != "":
         if os.path.exists(os.path.join(root_dir, tag)):
@@ -93,10 +90,16 @@ def init_dir(tag: str, root_dir: str = "../runs") -> str:
                                datetime.now().
                                strftime("pipeline_%d_%m_%Y-%H:%M:%S"))
     if not os.path.exists(run_dir):
-        logger.info(f"-> Creating run directory: {run_dir}")
+        print(f"-> Creating run directory: {run_dir}")
         os.mkdir(run_dir)
     return run_dir
 
+class StartsWithFilter(logging.Filter):
+    def __init__(self, prefix):
+        super().__init__()
+        self.prefix = prefix
+    def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
+        return record.getMessage().startswith(self.prefix)
 
 if __name__ == '__main__':
     setup_logging('/home/daniel/SideProjects/ml_helper/configs/logging_config.json')
