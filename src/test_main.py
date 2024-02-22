@@ -2,7 +2,7 @@
 # patch_sklearn()  # Still receiving NaNs -> Why??
 from sklearn.model_selection import (GridSearchCV, train_test_split, cross_validate)
 import utils
-from logging_helper import setup_logging, generate_run_directories, change_file_handler_path
+from logging_helper import setup_logging, generate_run_directories
 from logging_helper import logger
 import config
 
