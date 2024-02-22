@@ -41,7 +41,7 @@
       "prefixes": [
         "Loading data:",
         "Regression metrics:"
-        ]
+      ]
     }
   },
   "loggers": {
@@ -51,7 +51,7 @@
         "file",
         "metrics"
       ],
-      "level": "DEBUG"
+      "level": "NOTSET"
     }
   }
 }
