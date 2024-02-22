@@ -23,6 +23,8 @@ Happy coding! 🚀
   - ![LoggerClass](./documentation/img.png)
     - [ ] PROBLEM -> I'm on py3.11, above class structure for py3.12. can i upgrade py version in my project?
 - [ ] Make the Contents tree prettier...
+- [ ] Add an enviroment .yaml file for the project
+- 
 ## Contents
 
 |--- configs\
