@@ -13,7 +13,7 @@
     "stdout": {
       "class": "logging.StreamHandler",
       "formatter": "simple",
-      "level": "INFO",
+      "level": "DEBUG",
       "stream": "ext://sys.stdout"
     },
     "file": {
@@ -32,13 +32,16 @@
       "filters": [
         "get_metrics"
       ],
-      "level": "INFO"
+      "level": "DEBUG"
     }
   },
   "filters": {
     "get_metrics": {
-      "()": "logging_helper.StartsWithFilter",
-      "prefix": "Regression metrics:"
+      "()": "logging_utils.StartsWithFilter",
+      "prefixes": [
+        "Loading data:",
+        "Regression metrics:"
+        ]
     }
   },
   "loggers": {
@@ -48,7 +51,7 @@
         "file",
         "metrics"
       ],
-      "level": "INFO"
+      "level": "DEBUG"
     }
   }
 }
