@@ -7,6 +7,30 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
+"""
+For basic usage of the logging helper, you can use the following code snippet:
+
+
+    # import the logging helper
+    from logging_helper import setup_logging, generate_run_directories
+    from logging_helper import logger
+    
+    # Setup the logging
+    setup_logging('YOUR/CONFIG/PATH.json')
+
+    # Create the run directories
+    main_dir, model_dir, plot_dir, log_dir = generate_run_directories(
+        log_name=NAME_OF_LOG_FILE,  # preferably the name of the model
+        tag=f"NAME_OF_SINGLE_RUN_FOLDER"  # preferably the name of the model and architecture 
+                                          # or something to identify the model
+    )
+    
+With the above code snippet, you will get a dynamically growing directory structure for your runs.
+     
+For further advanced usage you can add new filters, handlers, and loggers here in this file
+and use them in the logging_config.json file. (For example, the StartWithFilter)
+"""
+
 
 def setup_logging(config_path: str):
     """
@@ -25,6 +49,7 @@ def get_handler(handler_name: str) -> logging.handlers:
     Get the handler by name
 
     :param handler_name: handler name to get
+    :return handler: handler with the given name
     """
     for handler in logging.getLogger().handlers:
         if handler.name == handler_name:
@@ -53,11 +78,16 @@ def change_file_handler_path(handler_name: str, new_path: str):
     logger.addHandler(new_handler)
 
 
-def generate_run_directories(log_name: str, tag: str = ""):
+def generate_run_directories(log_name: str, tag: str = "") -> tuple[str, str, str, str]:
     """
     Create directories for the run
     Also sets the log file path for the logger
 
+    :param log_name: Name of the log file
+    :param tag: Giving the run a tag if None tag will be the current date and time
+                Used for Folder naming, preferably the name of the model or something
+                to identify the run
+    :return: main_dir, model_dir, plot_dir, log_dir paths
     """
     main_dir = init_dir(root_dir="../runs", tag=tag)
     plot_dir = os.path.join(main_dir, "plots/")
@@ -77,6 +107,7 @@ def init_dir(tag: str, root_dir: str = "../runs") -> str:
 
     :param root_dir: Working directory
     :param tag: Giving the run a tag if None tag will be the current date and time
+    :return: Path to the run directory
     """
     if not os.path.exists(root_dir):
         print(f"-> Creating root dir: {root_dir}")
@@ -94,12 +125,33 @@ def init_dir(tag: str, root_dir: str = "../runs") -> str:
         os.mkdir(run_dir)
     return run_dir
 
+
 class StartsWithFilter(logging.Filter):
+    """
+    Filter to only log messages that start with a certain prefix
+
+    The below example can be used in the logging_config.json file:
+
+    "filters": {
+    "get_metrics": {
+      "()": "logging_helper.StartsWithFilter",
+      "prefix": "YOUR_PREFIX_HERE"
+    }
+
+    """
     def __init__(self, prefix):
         super().__init__()
         self.prefix = prefix
+
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
+        """
+        Filter the log records for the given prefix
+
+        :param record: log record
+        :return: log record if the message starts with the prefix
+        """
         return record.getMessage().startswith(self.prefix)
+
 
 if __name__ == '__main__':
     setup_logging('/home/daniel/SideProjects/ml_helper/configs/logging_config.json')
