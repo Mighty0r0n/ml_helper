@@ -90,6 +90,28 @@ def print_regression_metrics(y_true, y_pred) -> str:
             f"    -> VAR: {explained_variance_score(y_true=y_true, y_pred=y_pred)}\n")
 
 
+def mc_dropout(model, X, T=100):
+    """Monte Carlo Dropout for uncertainty estimation
+    Model needs to be pretrained, prediction will be an ensemble decision of T forward passes
+    In this ensemble dropout is still active, which isn't the norm for predicting with
+    models using dropout. This is why the model is called with training=True
+    
+    Args:
+        model (keras model): Trained model
+        X (ndarray): Input data
+        T (int, optional): Number of forward passes. Defaults to 100.
+
+    Returns:
+        ndarray: Mean prediction
+        ndarray: Standard deviation
+    """
+    y_probas = np.stack([model(X, training=True) for sample in range(T)])
+    y_mean = y_probas.mean(axis=0)
+    y_std = y_probas.std(axis=0)
+    
+    return y_mean, y_std
+
+
 if __name__ == '__main__':
     # Example usage
     project_root = ".."
