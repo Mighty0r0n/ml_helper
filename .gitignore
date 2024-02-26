@@ -1,5 +1,6 @@
 # own project
 ./runs
+src/testfile.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
