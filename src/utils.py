@@ -111,6 +111,42 @@ def mc_dropout(model, X, T=100):
     
     return y_mean, y_std
 
+def make_plotly_figure(y_true, y_pred, y_mean):
+
+    # fit through mean
+    reg = LinearRegression(fit_intercept=False)
+    reg.fit(y_true.reshape(-1, 1), y_mean)
+
+    # adjust plot size bc of many data
+    plt.figure(figsize=(16, 14))
+
+    # scatter first the mean pred values
+    plt.scatter(x=y_true, y=y_mean, label='Actual', c="blue", s=20)
+    for i in range(len(y_pred)):
+        # scatter now every layer of np.stack monte carlo prediction
+        # more opaque for trace like view
+        plt.scatter(x=y_true, y=y_pred[i].reshape(-1,), label=f'Predictions {i+1}', c='red', alpha=0.01, s=10)
+
+    # plot the fitted line through the origin
+    x_fit = np.linspace(min(y_true), max(y_true), 100).reshape(-1, 1)
+    y_fit = reg.predict(x_fit)
+    plt.plot(x_fit, y_fit, color='green', label=f"Fitted Line:y = {reg.coef_[0]}x")
+
+    # set view limits of plot axis
+    plt.xlim([-3, 4])
+    plt.ylim([-3, 4])
+    plt.xlabel('Actual')
+    plt.ylabel('Predicted')
+
+    # big line to origin
+    plt.axhline(0, color='black', linewidth=0.5)
+    plt.axvline(0, color='black', linewidth=0.5)
+
+    #plt.legend()
+    plt.grid(color='gray', linestyle='--', linewidth=0.5)
+
+    plt.savefig("../test_data/plot.png")
+
 
 if __name__ == '__main__':
     # Example usage
